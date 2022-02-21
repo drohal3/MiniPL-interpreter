@@ -140,19 +140,6 @@ namespace Project.Phase
         }
 
         /**
-         *  Returns true if the parsed string matches one of the reserved keywords. Returns false otherwise.
-         */
-        private bool IsKeyword(string txt)
-        {
-            var keywords = new string[]
-            {
-                "var", "for", "end", "in", "do", "read", "print", "int", "string", "bool", "assert"
-            };
-
-            return Array.IndexOf(keywords, txt) > -1;
-        }
-
-        /**
          *  Returns identifier if the next sequence of characters is identifier. If no match, returns empty string;
          *  WARNING! This method does not handle keywords. Use IsKeyword to check if the returned identifier is not
          *  a keyword
@@ -173,6 +160,19 @@ namespace Project.Phase
             }
             
             return token;
+        }
+        
+        /**
+         *  Returns true if the parsed string matches one of the reserved keywords. Returns false otherwise.
+         */
+        private bool IsKeyword(string txt)
+        {
+            var keywords = new string[]
+            {
+                "var", "for", "end", "in", "do", "read", "print", "int", "string", "bool", "assert"
+            };
+
+            return Array.IndexOf(keywords, txt) > -1;
         }
 
         /**
