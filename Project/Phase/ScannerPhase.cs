@@ -10,6 +10,8 @@ namespace Project.Phase
      * Tasks:
      * - remove white spaces
      * - remove comments
+     *  - single line comments: // <something> \n
+     *  - multi line comments: /* <something> \*\/
      * - identify token category
     */
     public class Scanner
@@ -19,6 +21,7 @@ namespace Project.Phase
         const string whitespaces = " \t\n\r\0";
         const string operators = "+-/*!&<";
         const string separators = ")(";
+        const string special = ";:";
         const string upperCaseLetters = "QWERTYUIOPLKJHGFDSAZXCVBNM";
         const string lowercaseLetters = "qwertyuioplkjhgfdsazxcvbnm";
         
@@ -38,7 +41,8 @@ namespace Project.Phase
         }
 
         /*
-         * kind of deterministic finite automaton
+         * kind of modified deterministic finite automaton
+         * split into multiple methods - pool to avoid "spaghetti code"
          */
         public Token GetNextToken()
         {
@@ -48,6 +52,8 @@ namespace Project.Phase
             {
                 (TokenType.Operator, CutOperator), 
                 (TokenType.Separator, CutSeparator),
+                (TokenType.Assign, cutAssign), // must be run before Special (: vs :=)
+                (TokenType.Special, CutSpecial),
                 (TokenType.String, CutString),
                 (TokenType.Number, CutNumber),
                 (TokenType.Identifier, CutIdentifier)
@@ -102,6 +108,40 @@ namespace Project.Phase
         private string CutSeparator()
         {
             return separators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : "";
+        }
+
+        /**
+         *  Returns assign chars if the next two match match :=. If no match, returns empty string.
+         */
+        private string cutAssign()
+        {
+            var startPos = _position;
+            var token = "";
+            if (GetNextChar(true) == ':')
+            {
+                token += GetNextChar();
+
+                if (GetNextChar(true) == '=')
+                {
+                    token += GetNextChar();
+                }
+                else
+                {
+                    _position = startPos;
+                    
+                    return "";
+                }
+            }
+
+            return token;
+        }
+
+        /**
+         *  Returns special char if the next character matches one of the operators. If no match, returns empty string.
+         */
+        private string CutSpecial()
+        {
+            return special.Contains(GetNextChar(true)) ? GetNextChar().ToString() : "";
         }
 
         /**

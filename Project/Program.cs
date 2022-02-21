@@ -8,7 +8,7 @@ namespace Project
     {
         public static void Main(string[] args)
         {
-            var aText = " // \n -+ 984+ barts \"ahopj\" )) 56 ";
+            var aText = " // \n : := -+ 984+ barts \"ahopj\" )) 56 ";
             var aScanner = new Scanner(aText);
 
             while (aScanner.HasNextChar())

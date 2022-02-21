@@ -8,6 +8,8 @@ namespace Project
         Number,
         Operator,
         Separator,
+        Special,
+        Assign,
         Identifier,
         Keyword
     }
