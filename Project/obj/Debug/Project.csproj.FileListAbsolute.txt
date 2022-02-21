@@ -1,6 +1,0 @@
-/Users/rohal/RiderProjects/Project/Project/bin/Debug/Project.exe
-/Users/rohal/RiderProjects/Project/Project/bin/Debug/Project.pdb
-/Users/rohal/RiderProjects/Project/Project/obj/Debug/Project.csprojAssemblyReference.cache
-/Users/rohal/RiderProjects/Project/Project/obj/Debug/Project.csproj.CoreCompileInputs.cache
-/Users/rohal/RiderProjects/Project/Project/obj/Debug/Project.exe
-/Users/rohal/RiderProjects/Project/Project/obj/Debug/Project.pdb
