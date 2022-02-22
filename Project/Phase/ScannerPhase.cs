@@ -6,28 +6,65 @@ using Project.Phase.Exception;
 namespace Project.Phase
 {
     /*
-     * Role: The role of scanner is to group characters into recognizable units - tokens
+     * Role: The role of the scanner is to group characters into recognizable units - tokens
      * Tasks:
      * - remove white spaces
      * - remove comments
-     *  - single line comments: // <something> \n
-     *  - multi line comments: /* <something> \*\/
+     *   - single line comments: // <something> \n
+     *   - multi line comments: /* <something> \*\/
      * - identify token category
     */
     public class Scanner
     {
-        
+        /// <summary>
+        ///   digit characters
+        /// </summary>
         const string digits = "0123456789";
+        
+        /// <summary>
+        ///   whitespaces
+        /// </summary>
         const string whitespaces = " \t\n\r\0";
+        
+        /// <summary>
+        ///   operator characters
+        /// </summary>
         const string operators = "+-/*!&<";
+        
+        /// <summary>
+        ///   separator characters
+        /// </summary>
         const string separators = ")(";
+        
+        /// <summary>
+        ///   special characters
+        /// </summary>
         const string special = ";:";
+        
+        /// <summary>
+        ///   upper case letter characters
+        /// </summary>
         const string upperCaseLetters = "QWERTYUIOPLKJHGFDSAZXCVBNM";
+        
+        /// <summary>
+        ///   lower case letter characters
+        /// </summary>
         const string lowercaseLetters = "qwertyuioplkjhgfdsazxcvbnm";
         
+        /// <summary>
+        ///   position of the next unread character
+        /// </summary>
         private int _position;
+        
+        /// <summary>
+        ///   scanned text
+        /// </summary>
         private readonly string _text;
         
+        /// <summary>
+        ///   constructor
+        /// </summary>
+        /// <param name="text">text to scan</param>
         public Scanner(string text)
         {
             _text = text;
@@ -36,21 +73,41 @@ namespace Project.Phase
             Console.WriteLine(text);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool HasNextChar()
         {
+            // TODO: handle errors
             return _position < _text.Length;
         }
 
-        /*
-         * kind of modified deterministic finite automaton
-         * split into multiple methods - pool to avoid "spaghetti code"
-         */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool HasNextToken()
+        {
+            var origPosition = _position;
+            // TODO: handle errors
+            var nextToken = GetNextToken();
+            
+            _position = origPosition;
+            return nextToken != null;
+        }
+        
         /// <summary>
         ///   Returns the next token.
         /// </summary>
         /// <returns>Next token</returns>
         public Token GetNextToken()
-        {
+        {             // TODO: handle errors
+            /*
+             * kind of modified deterministic finite automaton
+             * split into multiple methods - pool to avoid "spaghetti code"
+             */
+            
             CleanCommentsAndWhites();
 
             var actions = new List<(TokenType, Func<string>)>
@@ -102,7 +159,7 @@ namespace Project.Phase
             return next;
         }
 
-        /**
+        /*
          *  Returns operator if the next character matches one of the operators. If no match, returns empty string.
          */
         private string CutOperator()
@@ -110,7 +167,7 @@ namespace Project.Phase
             return operators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : "";
         }
 
-        /**
+        /*
          *  Returns separator if the next character matches one of the operators. If no match, returns empty string.
          */
         private string CutSeparator()
@@ -118,7 +175,7 @@ namespace Project.Phase
             return separators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : "";
         }
 
-        /**
+        /*
          *  Returns assign chars if the next two match match :=. If no match, returns empty string.
          */
         private string cutAssign()
@@ -144,7 +201,7 @@ namespace Project.Phase
             return token;
         }
 
-        /**
+        /*
          *  Returns special char if the next character matches one of the operators. If no match, returns empty string.
          */
         private string CutSpecial()
@@ -152,7 +209,7 @@ namespace Project.Phase
             return special.Contains(GetNextChar(true)) ? GetNextChar().ToString() : "";
         }
 
-        /**
+        /*
          *  Returns literal if the next sequence of characters is string. If no match, returns empty string.
          */
         private string CutString()
@@ -173,7 +230,7 @@ namespace Project.Phase
             return literal + GetNextChar();
         }
 
-        /**
+        /*
          *  Returns number if the next sequence of characters are digits. If no match, returns empty string.
          */
         private string CutNumber()
@@ -187,7 +244,7 @@ namespace Project.Phase
             return literal;
         }
 
-        /**
+        /*
          *  Returns identifier if the next sequence of characters is identifier. If no match, returns empty string;
          *  WARNING! This method does not handle keywords. Use IsKeyword method to check if the returned identifier is not
          *  a keyword
@@ -210,7 +267,7 @@ namespace Project.Phase
             return token;
         }
         
-        /**
+        /*
          *  Returns true if the parsed string matches one of the reserved keywords. Returns false otherwise.
          */
         private bool IsKeyword(string txt)
@@ -223,7 +280,7 @@ namespace Project.Phase
             return Array.IndexOf(keywords, txt) > -1;
         }
 
-        /**
+        /*
          *  Removes all comments and whitespaces before the next possible token.
          */
         private void CleanCommentsAndWhites()
