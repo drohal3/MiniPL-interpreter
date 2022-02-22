@@ -27,6 +27,7 @@ namespace Project.Phase
         
         private int _position;
         private readonly string _text;
+        
         public Scanner(string text)
         {
             _text = text;
@@ -44,6 +45,10 @@ namespace Project.Phase
          * kind of modified deterministic finite automaton
          * split into multiple methods - pool to avoid "spaghetti code"
          */
+        /// <summary>
+        ///   Returns the next token.
+        /// </summary>
+        /// <returns>Next token</returns>
         public Token GetNextToken()
         {
             CleanCommentsAndWhites();
@@ -64,7 +69,7 @@ namespace Project.Phase
                 var tokenStr = action.Item2.Invoke();
 
                 if (tokenStr.Length > 0)
-                {
+                { // handling keywords
                     if (action.Item1 == TokenType.Identifier && IsKeyword(tokenStr))
                     {
                         return new Token(TokenType.Keyword, tokenStr);
@@ -77,9 +82,12 @@ namespace Project.Phase
             return null;
         }
 
-        /**
-         * Returns next character.
-         */
+        /// <summary>
+        ///   Returns the next character in the code and adjusts the position. 
+        /// </summary>
+        /// <param name="peek"></param>
+        /// <returns>Next character</returns>
+        /// <exception cref="NoCharException"></exception>
         private char GetNextChar(bool peek = false)
         {
             if (!HasNextChar())
@@ -181,7 +189,7 @@ namespace Project.Phase
 
         /**
          *  Returns identifier if the next sequence of characters is identifier. If no match, returns empty string;
-         *  WARNING! This method does not handle keywords. Use IsKeyword to check if the returned identifier is not
+         *  WARNING! This method does not handle keywords. Use IsKeyword method to check if the returned identifier is not
          *  a keyword
          */
         private string CutIdentifier()
@@ -216,7 +224,7 @@ namespace Project.Phase
         }
 
         /**
-         *  Removes all comments and whitespaces before the next token.
+         *  Removes all comments and whitespaces before the next possible token.
          */
         private void CleanCommentsAndWhites()
         {
@@ -263,8 +271,7 @@ namespace Project.Phase
                 { // single-line comment
                     while (GetNextChar(true) != '\n') // TODO: what if no next?
                     {
-                        nextChar = GetNextChar();
-                        // skip
+                        nextChar = GetNextChar(); // skip the character
                     }
                 }
                 
