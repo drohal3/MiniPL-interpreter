@@ -2,6 +2,9 @@ using System;
 
 namespace Project
 {
+    /// <summary>
+    ///   Token types
+    /// </summary>
     public enum TokenType
     {
         String,
