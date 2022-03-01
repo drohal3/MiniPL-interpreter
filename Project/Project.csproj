@@ -39,12 +39,15 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Phase\Exception\NoCharException.cs" />
-        <Compile Include="Phase\ParserPhase.cs" />
-        <Compile Include="Phase\ScannerPhase.cs" />
-        <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Token.cs" />
+        <Compile Include="src\Phase\Exception\NoCharException.cs" />
+        <Compile Include="src\Phase\ParserPhase.cs" />
+        <Compile Include="src\Phase\ScannerPhase.cs" />
+        <Compile Include="src\Program.cs" />
+        <Compile Include="src\Token.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Phase\Exception" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

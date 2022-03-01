@@ -11,7 +11,7 @@ namespace Project.Phase
      * - remove white spaces
      * - remove comments
      *   - single line comments: // <something> \n
-     *   - multi line comments: /* <something> \*\/
+     *   - multi line comments: /* <something> *\/
      * - identify token category
     */
     public class Scanner
