@@ -1,4 +1,4 @@
-namespace Project.Phase
+namespace Project.MiniPL.Phase
 {
     public class Parser
     {

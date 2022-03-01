@@ -1,4 +1,4 @@
-namespace Project
+namespace Project.MiniPL
 {
     /// <summary>
     ///   Token types

@@ -1,7 +1,7 @@
 using System;
-using Project.Phase;
+using Project.MiniPL.Phase;
 
-namespace Project
+namespace Project.MiniPL
 {
     internal class Program
     {

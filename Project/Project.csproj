@@ -40,14 +40,11 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="src\Phase\Exception\NoCharException.cs" />
-        <Compile Include="src\Phase\ParserPhase.cs" />
-        <Compile Include="src\Phase\ScannerPhase.cs" />
-        <Compile Include="src\Program.cs" />
-        <Compile Include="src\Token.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Phase\Exception" />
+        <Compile Include="src\MiniPL\Phase\Exception\NoCharException.cs" />
+        <Compile Include="src\MiniPL\Phase\ParserPhase.cs" />
+        <Compile Include="src\MiniPL\Phase\ScannerPhase.cs" />
+        <Compile Include="src\MiniPL\Program.cs" />
+        <Compile Include="src\MiniPL\Token.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

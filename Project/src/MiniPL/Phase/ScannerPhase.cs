@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Project.Phase.Exception;
+using Project.MiniPL.Phase.Exception;
 
-namespace Project.Phase
+namespace Project.MiniPL.Phase
 {
     /*
      * Role: The role of the scanner is to group characters into recognizable units - tokens
