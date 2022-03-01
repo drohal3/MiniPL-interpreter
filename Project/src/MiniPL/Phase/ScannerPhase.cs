@@ -123,13 +123,14 @@ namespace Project.MiniPL.Phase
 
             foreach (var action in actions)
             {
+                var pos = _position;
                 var tokenStr = action.Item2.Invoke();
 
-                if (tokenStr.Length > 0)
+                if (tokenStr != null)
                 { // handling keywords
                     if (action.Item1 == TokenType.Identifier && IsKeyword(tokenStr))
                     {
-                        return new Token(TokenType.Keyword, tokenStr);
+                        return new Token(TokenType.Keyword, tokenStr, pos);
                     }
 
                     return new Token(action.Item1, tokenStr);
@@ -164,7 +165,7 @@ namespace Project.MiniPL.Phase
          */
         private string CutOperator()
         {
-            return operators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : "";
+            return operators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : null;
         }
 
         /*
@@ -172,7 +173,7 @@ namespace Project.MiniPL.Phase
          */
         private string CutSeparator()
         {
-            return separators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : "";
+            return separators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : null;
         }
 
         /*
@@ -194,11 +195,11 @@ namespace Project.MiniPL.Phase
                 {
                     _position = startPos;
                     
-                    return "";
+                    return null;
                 }
             }
 
-            return token;
+            return token.Length > 0 ? token : null;
         }
 
         /*
@@ -206,7 +207,7 @@ namespace Project.MiniPL.Phase
          */
         private string CutSpecial()
         {
-            return special.Contains(GetNextChar(true)) ? GetNextChar().ToString() : "";
+            return special.Contains(GetNextChar(true)) ? GetNextChar().ToString() : null;
         }
 
         /*
@@ -216,7 +217,7 @@ namespace Project.MiniPL.Phase
         {
             if (GetNextChar(true) != '\"')
             {
-                return "";
+                return null;
             }
 
             var literal = GetNextChar().ToString();
@@ -241,7 +242,7 @@ namespace Project.MiniPL.Phase
                 literal += GetNextChar();
             }
 
-            return literal;
+            return literal.Length > 0 ? literal : null;
         }
 
         /*
@@ -264,7 +265,7 @@ namespace Project.MiniPL.Phase
                 token += GetNextChar();
             }
             
-            return token;
+            return token.Length > 0 ? token : null;
         }
         
         /*
@@ -321,7 +322,7 @@ namespace Project.MiniPL.Phase
                         // skip
                     }
                 
-                    this.GetNextChar(); // skipping '/'
+                    GetNextChar(); // skipping '/'
                 }
             
                 if (secondChar == '/')
