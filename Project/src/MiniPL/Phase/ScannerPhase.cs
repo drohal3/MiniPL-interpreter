@@ -123,6 +123,11 @@ namespace Project.MiniPL.Phase
 
             foreach (var action in actions)
             {
+                if (!HasNextChar())
+                {
+                    break;
+                }
+                
                 var pos = _position;
                 var tokenStr = action.Item2.Invoke();
 
@@ -133,7 +138,7 @@ namespace Project.MiniPL.Phase
                         return new Token(TokenType.Keyword, tokenStr, pos);
                     }
 
-                    return new Token(action.Item1, tokenStr);
+                    return new Token(action.Item1, tokenStr, pos);
                 }
             }
 
@@ -165,7 +170,7 @@ namespace Project.MiniPL.Phase
          */
         private string CutOperator()
         {
-            return operators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : null;
+            return HasNextChar() && operators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : null;
         }
 
         /*
@@ -173,7 +178,7 @@ namespace Project.MiniPL.Phase
          */
         private string CutSeparator()
         {
-            return separators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : null;
+            return HasNextChar() && separators.Contains(GetNextChar(true)) ? GetNextChar().ToString() : null;
         }
 
         /*
@@ -183,11 +188,11 @@ namespace Project.MiniPL.Phase
         {
             var startPos = _position;
             var token = "";
-            if (GetNextChar(true) == ':')
+            if (HasNextChar() && GetNextChar(true) == ':')
             {
                 token += GetNextChar();
 
-                if (GetNextChar(true) == '=')
+                if (HasNextChar() && GetNextChar(true) == '=')
                 {
                     token += GetNextChar();
                 }
@@ -207,7 +212,7 @@ namespace Project.MiniPL.Phase
          */
         private string CutSpecial()
         {
-            return special.Contains(GetNextChar(true)) ? GetNextChar().ToString() : null;
+            return HasNextChar() && special.Contains(GetNextChar(true)) ? GetNextChar().ToString() : null;
         }
 
         /*
@@ -215,14 +220,14 @@ namespace Project.MiniPL.Phase
          */
         private string CutString()
         {
-            if (GetNextChar(true) != '\"')
+            if (!HasNextChar() || GetNextChar(true) != '\"')
             {
                 return null;
             }
 
             var literal = GetNextChar().ToString();
 
-            while (GetNextChar(true) != '\"')
+            while (HasNextChar() && GetNextChar(true) != '\"')
             {
                 literal += GetNextChar();
             }
@@ -237,7 +242,7 @@ namespace Project.MiniPL.Phase
         private string CutNumber()
         {
             var literal = "";
-            while (digits.Contains(GetNextChar(true)))
+            while (HasNextChar() && digits.Contains(GetNextChar(true)))
             {
                 literal += GetNextChar();
             }
@@ -255,7 +260,7 @@ namespace Project.MiniPL.Phase
             var allowedChars = lowercaseLetters + upperCaseLetters + '_';
             var token = "";
             
-            while (allowedChars.Contains(GetNextChar(true)))
+            while (HasNextChar() && allowedChars.Contains(GetNextChar(true)))
             {
                 if (token.Length == 0)
                 {

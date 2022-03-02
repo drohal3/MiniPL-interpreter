@@ -56,5 +56,10 @@ namespace Project.MiniPL
         /// </summary>
         /// <returns>The line number of the token position in the code</returns>
         public int Line { get; }
+
+        public string ToString()
+        {
+            return "TokenType: " + TokenType + "; Value: " + Value + "; Line: " + Line + "; Position: " + Position;
+        }
     }
 }

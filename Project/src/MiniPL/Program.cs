@@ -18,7 +18,7 @@ namespace Project.MiniPL
                     break;
                 }
                 
-                Console.WriteLine(token.TokenType.ToString() + " : " + token.Value);
+                Console.WriteLine(token.ToString());
             }
         }
     }
