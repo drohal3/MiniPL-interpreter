@@ -40,11 +40,30 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="src\MiniPL\interpreter\Interpreter.cs" />
         <Compile Include="src\MiniPL\Phase\Exception\NoCharException.cs" />
-        <Compile Include="src\MiniPL\Phase\ParserPhase.cs" />
+        <Compile Include="src\MiniPL\Phase\Parser\Ast.cs" />
+        <Compile Include="src\MiniPL\Phase\Parser\Cfg\Node.cs" />
+        <Compile Include="src\MiniPL\Phase\Parser\Cfg\Expr.cs" />
+        <Compile Include="src\MiniPL\Phase\Parser\Cfg\NonTerminal.cs" />
+        <Compile Include="src\MiniPL\Phase\Parser\Cfg\Opnd.cs" />
+        <Compile Include="src\MiniPL\Phase\Parser\Cfg\Prog.cs" />
+        <Compile Include="src\MiniPL\Phase\Parser\Cfg\Stmt.cs" />
+        <Compile Include="src\MiniPL\Phase\Parser\Cfg\Stmts.cs" />
+        <Compile Include="src\MiniPL\Phase\Parser\Cfg\Terminal.cs" />
+        <Compile Include="src\MiniPL\Phase\Parser\ParserPhase.cs" />
         <Compile Include="src\MiniPL\Phase\ScannerPhase.cs" />
         <Compile Include="src\MiniPL\Program.cs" />
         <Compile Include="src\MiniPL\Token.cs" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="src\ExampleFiles\Example1.MiniPL" />
+      <Content Include="src\ExampleFiles\Example2.MiniPL" />
+      <Content Include="src\ExampleFiles\Example3.MiniPL" />
+      <Content Include="src\ExampleFiles\Example4.MiniPL" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="src\MiniPL\Phase\Parser\ast" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
