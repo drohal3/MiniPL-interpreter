@@ -18,8 +18,8 @@ namespace Project.MiniPL.Phase.Parser.Cfg
             
         }
 
-        
-        public override void ProduceNext()
+
+        protected override void ProduceNext()
         {
             if (PredictionSet == null)
             {
@@ -44,7 +44,8 @@ namespace Project.MiniPL.Phase.Parser.Cfg
                     new ArrayList() {}  // TODO: “assert” “(” <expr> “)”
                 };
             }
-            
+
+            PredictionSetPositionY++; //TODO: what if hit the max?
             
         }
     }

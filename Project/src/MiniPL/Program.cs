@@ -8,7 +8,7 @@ namespace Project.MiniPL
     {
         public static void Main(string[] args)
         {
-            var aText = "var X : int;";
+            var aText = "var ident;";
             var aScanner = new Scanner(aText);
 
             var aParser = new Parser(aScanner);

@@ -9,10 +9,22 @@ namespace Project.MiniPL.Phase.Parser.Cfg
     {
         public Prog()
         {
-            PredictionSet = new ArrayList()
+            
+        }
+
+        protected override void ProduceNext()
+        {
+            // TODO: if hit the max position?
+            
+            if (PredictionSet == null)
             {
-                new ArrayList(){new Stmts()}
-            };
+                PredictionSet = new ArrayList()
+                {
+                    new ArrayList(){new Stmts()}
+                };
+            }
+
+            PredictionSetPositionY++;
         }
     }
 }
